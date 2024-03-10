@@ -1,32 +1,34 @@
 def is_symmetric_sequence(sequence):
-    n = len(sequence)
-    for i in range(n // 2):
-        if sequence[i] != sequence[n - i - 1]:
-            return False
-    return True
+    return sequence == sequence[::-1]
 
-def build_B_matrix(A):
-    B = []
-    n = len(A)
-    for i in range(n):
-        if is_symmetric_sequence(A[i]):
-            B.append(i)
-    return B
+def find_symmetric_rows(matrix):
+    symmetric_rows = []
+    for i, row in enumerate(matrix):
+        if is_symmetric_sequence(row):
+            symmetric_rows.append(i)
+    return symmetric_rows
 
-def print_vector(vector, per_row=7):
-    for i, element in enumerate(vector, 1):
-        print(element, end=' ')
-        if i % per_row == 0:
-            print()
+def print_vector(vector):
+    for i in range(0, len(vector), 7):
+        print(*vector[i:i+7])
 
-# Приклад вхідної матриці
+
 A = [
     [1, 2, 3, 3, 2, 1],
     [1, 2, 3, 5, 3, 2, 1],
-    [1, 2, 3, 4, 5],
-    [5, 4, 3, 2, 1],
-    [1, 1, 1, 1, 1]
+    [1, 2, 3, 4, 3, 2, 1],
+    [1, 2, 3, 3, 2, 1],
+    [1, 2, 3, 5, 3, 2, 1],
+    [1, 2, 1, 2, 1, 2]
 ]
 
-B = build_B_matrix(A)
+
+symmetric_rows = find_symmetric_rows(A)
+print("Симетричні рядки матриці A:", symmetric_rows)
+
+# Побудова вектора B з номерів симетричних рядків
+B = symmetric_rows
+print("Вектор B:", B)
+
+print("Вектор B по 7 елементів у рядку:")
 print_vector(B)
